@@ -44,6 +44,16 @@ class Connection extends BaseConnection
     {
         return 'couchdb';
     }
+    
+    /**
+     * Sets the Couchdb databaseName
+     * 
+     * @return void
+     */
+    public function setDatabase( $database = null )
+    {
+       $this->db->setDatabase($database);
+    }
 
     /**
      * Begin a fluent query against a database collection.
