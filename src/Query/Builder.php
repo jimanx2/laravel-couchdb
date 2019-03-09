@@ -220,7 +220,7 @@ class Builder extends BaseBuilder
         $direction = 'asc';
 
         //CouchDB 2.0 currently only support a single direction for all fields
-        if (count($this->orders)) {
+        if (isset($this->orders) && count($this->orders)) {
             $direction = array_unique(array_values($this->orders));
             if (count($direction) > 1) {
                 throw new QueryException('Sort currently only support a single direction for all fields.');
