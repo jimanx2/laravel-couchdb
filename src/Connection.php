@@ -52,7 +52,8 @@ class Connection extends BaseConnection
      */
     public function setDatabase( $database = null )
     {
-       $this->db->setDatabase($database);
+        if( isset($database) )
+            $this->db->setDatabase($database);
     }
 
     /**
