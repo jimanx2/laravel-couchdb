@@ -61,6 +61,9 @@ abstract class Model extends BaseModel
     {
         $connection = $this->getConnection();
 
+        if( isset($this->database) )
+            $connection->setDatabase($this->database);
+        
         return new QueryBuilder($connection, $connection->getPostProcessor());
     }
 
