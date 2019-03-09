@@ -13,7 +13,7 @@
     "illuminate/support": "5.4.*",
     "illuminate/container": "5.4.*",
     "illuminate/events": "5.4.*",
-    "doctrine/couchdb": "dev",
+    "doctrine/couchdb": "master",
     "adbario/php-dot-notation": "^1.2"
   },
   "require-dev":{
