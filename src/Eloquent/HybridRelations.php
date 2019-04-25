@@ -66,7 +66,8 @@ trait HybridRelations
         return new MorphOne($instance->newQuery(), $this, $type, $id, $localKey);
     }
 
-    public function morphToMany($related, $name, $table = null, $foreignKey = null, $relatedKey = null, $inverse = false)
+    // public function morphToMany($related, $name, $table = null, $foreignKey = null, $relatedKey = null, $inverse = false)
+    public function morphToMany($related, $name, $table = NULL, $foreignPivotKey = NULL, $relatedPivotKey = NULL, $parentKey = NULL, $relatedKey = NULL, $inverse = false)
     {
       // Check if it is a relation with an original model.
       if (!is_subclass_of($related, \Robsonvn\CouchDB\Eloquent\Model::class)) {
