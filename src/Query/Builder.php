@@ -7,6 +7,7 @@ use DateTime;
 use Illuminate\Database\Query\Builder as BaseBuilder;
 use Illuminate\Database\Query\Expression;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 use Robsonvn\CouchDB\Connection;
 use Doctrine\CouchDB\Mango\MangoQuery;
 use Robsonvn\CouchDB\Exceptions\QueryException;
@@ -347,6 +348,7 @@ class Builder extends BaseBuilder
 
     public function get($columns = [], $create_index = true)
     {
+
         if ($this->shouldUseFindEndpoint()) {
             return $this->getFindEndpoint($columns, $create_index);
         }
@@ -413,7 +415,16 @@ class Builder extends BaseBuilder
 
     public function getFindEndpoint($columns = array(), $create_index = true)
     {
-        $results = $this->collection->find($this->getMangoQuery($columns));
+        $query = $this->getMangoQuery($columns);
+
+        if (env('CACHE_COUCHDB_MODELS', false) !== false) {
+            $cacheKey = "cdb:" . http_build_query($query->selector());
+            $results = Cache::remember($cacheKey, 300, function() use ($columns) {
+                return $this->collection->find($this->getMangoQuery($columns));
+            });
+        } else {
+            $results = $this->collection->find($this->getMangoQuery($columns));
+        }
 
         if ($results->status != 200) {
             //No index found when sorting values
