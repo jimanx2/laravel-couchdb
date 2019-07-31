@@ -425,7 +425,7 @@ public function attributesToArray()
         return parent::asDateTime($value);
     }
 
-    protected function getDateFormat()
+    public function getDateFormat()
     {
         return $this->dateFormat ?: 'Y-m-d H:i:s';
     }
