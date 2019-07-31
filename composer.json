@@ -9,10 +9,10 @@
   ],
   "license" : "MIT",
   "require": {
-    "illuminate/database": "5.5.*",
-    "illuminate/support": "5.5.*",
-    "illuminate/container": "5.5.*",
-    "illuminate/events": "5.5.*",
+    "illuminate/database": "^5.5",
+    "illuminate/support": "^5.5",
+    "illuminate/container": "^5.5",
+    "illuminate/events": "^5.5",
     "jimanx2/couchdb": "dev-master",
     "adbario/php-dot-notation": "^1.2"
   },
