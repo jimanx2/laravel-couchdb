@@ -62,6 +62,7 @@ And add a new couchdb connection:
     'ip'       => env('DB_IP', null),
     'port'     => env('DB_PORT', '5984'),
     'dbname'   => env('DB_DATABASE', 'forge'),
+    'database'   => env('DB_DATABASE', 'forge'),
     'user'     => env('DB_USERNAME', null),
     'password' => env('DB_PASSWORD', null),
     'logging'  => env('DB_LOGGING', false),
