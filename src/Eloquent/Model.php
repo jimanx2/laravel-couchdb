@@ -282,7 +282,7 @@ public function getAttribute($key)
     }
 
     // Dot notation support.
-    if (str_contains($key, '.') and array_has($this->attributes, $key)) {
+    if (Str::contains($key, '.') and array_has($this->attributes, $key)) {
         return $this->getAttributeValue($key);
     }
 
@@ -301,7 +301,7 @@ protected function getAttributeFromArray($key)
 {
     //TODO add suport to get attribute with cast using doting notation
     // Support keys in dot notation.
-    if (str_contains($key, '.')) {
+    if (Str::contains($key, '.')) {
         return array_get($this->attributes, $key);
     }
 
@@ -345,7 +345,7 @@ public function setAttribute($key, $value)
         $value = $this->applyCastArrayRecursive($key, $value);
     }
 
-    if (str_contains($key, '.')) {
+    if (Str::contains($key, '.')) {
         $value = $this->applyCasts($key, $value);
         array_set($this->attributes, $key, $value);
 
@@ -372,7 +372,7 @@ public function attributesToArray()
 
     // Convert dot-notation dates.
     foreach ($this->getDates() as $key) {
-        if (str_contains($key, '.') and array_has($attributes, $key)) {
+        if (Str::contains($key, '.') and array_has($attributes, $key)) {
             array_set($attributes, $key, (string) $this->asDateTime(array_get($attributes, $key)));
         }
     }

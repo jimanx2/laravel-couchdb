@@ -78,7 +78,7 @@ class Builder extends BaseBuilder
     '&',
     '|',
     'exists',
-    'laravel_type',
+    'type',
     'mod',
     'where',
     'size',
@@ -184,13 +184,13 @@ class Builder extends BaseBuilder
     /**
      * {@inheritdoc}
      */
-    public function from($collection)
+    public function from($collection, $as = NULL)
     {
         if ($collection) {
             $this->collection = $this->connection->getCollection($collection);
         }
 
-        return parent::from($collection);
+        return parent::from($collection, $as = NULL);
     }
 
     /**
@@ -230,7 +230,7 @@ class Builder extends BaseBuilder
         }
 
         //always sort per type first
-        array_unshift($sort, ['laravel_type'=>$direction]);
+        array_unshift($sort, ['type'=>$direction]);
 
         return $sort;
     }
@@ -401,7 +401,7 @@ class Builder extends BaseBuilder
                 //Filter columns
                 if (count($columns)) {
                     //mandatory fields
-                    array_push($columns, '_id', '_rev', 'laravel_type');
+                    array_push($columns, '_id', '_rev', 'type');
                     $doc = array_intersect_key($doc, array_flip($columns));
                 }
                 $docs[] = $doc;
@@ -482,7 +482,7 @@ class Builder extends BaseBuilder
     protected function compileWheres()
     {
         //The wheres to compile.
-        $this->where('laravel_type', '=', (string) $this->collection);
+        $this->where('type', '=', (string) $this->collection);
         $wheres = is_array($this->wheres) ? $this->wheres : [];
 
         // We will add all compiled wheres to this array.
@@ -713,7 +713,7 @@ class Builder extends BaseBuilder
                   ],
               ],
               $column => [
-                'laravel_type'=> $this->getDatabaseEquivalentDataType($values[0]),
+                'type'=> $this->getDatabaseEquivalentDataType($values[0]),
               ],
             ];
         } else {
@@ -770,7 +770,7 @@ class Builder extends BaseBuilder
     {
         $type = 'between';
 
-        $this->wheres[] = compact('column', 'laravel_type', 'boolean', 'values', 'not');
+        $this->wheres[] = compact('column', 'type', 'boolean', 'values', 'not');
 
         return $this;
     }
