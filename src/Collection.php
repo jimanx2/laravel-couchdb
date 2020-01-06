@@ -24,7 +24,7 @@ class Collection
 
     public function __call($method, $parameters)
     {
-        $parameters[0]['type'] = $this->collection;
+        $parameters[0]['record_type'] = $this->collection;
         $result = call_user_func_array([$this->connection->getCouchDBClient(), $method], $parameters);
 
         return $result;
@@ -74,7 +74,7 @@ class Collection
     {
         //Force type
         foreach ($values as &$value) {
-            $value['type'] = $this->collection;
+            $value['record_type'] = $this->collection;
         }
 
         $client = $this->connection->getCouchDBClient();
