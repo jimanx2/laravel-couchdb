@@ -78,7 +78,7 @@ class Builder extends BaseBuilder
     '&',
     '|',
     'exists',
-    'record_type',
+    'recordType',
     'mod',
     'where',
     'size',
@@ -230,7 +230,7 @@ class Builder extends BaseBuilder
         }
 
         //always sort per type first
-        array_unshift($sort, ['record_type'=>$direction]);
+        array_unshift($sort, ['recordType'=>$direction]);
 
         return $sort;
     }
@@ -278,7 +278,7 @@ class Builder extends BaseBuilder
 
         if (is_null($value) && $operator == '>=') {
             $this->wheres[] = [
-              'record_type'    => 'Basic',
+              'recordType'    => 'Basic',
               'operator'=> '>=',
               'column'  => $column,
               'value'   => null,
@@ -401,7 +401,7 @@ class Builder extends BaseBuilder
                 //Filter columns
                 if (count($columns)) {
                     //mandatory fields
-                    array_push($columns, '_id', '_rev', 'record_type');
+                    array_push($columns, '_id', '_rev', 'recordType');
                     $doc = array_intersect_key($doc, array_flip($columns));
                 }
                 $docs[] = $doc;
@@ -482,7 +482,7 @@ class Builder extends BaseBuilder
     protected function compileWheres()
     {
         //The wheres to compile.
-        $this->where('record_type', '=', (string) $this->collection);
+        $this->where('recordType', '=', (string) $this->collection);
         $wheres = is_array($this->wheres) ? $this->wheres : [];
 
         // We will add all compiled wheres to this array.
@@ -713,7 +713,7 @@ class Builder extends BaseBuilder
                   ],
               ],
               $column => [
-                'record_type'=> $this->getDatabaseEquivalentDataType($values[0]),
+                'recordType'=> $this->getDatabaseEquivalentDataType($values[0]),
               ],
             ];
         } else {
@@ -770,7 +770,7 @@ class Builder extends BaseBuilder
     {
         $type = 'between';
 
-        $this->wheres[] = compact('column', 'record_type', 'boolean', 'values', 'not');
+        $this->wheres[] = compact('column', 'recordType', 'boolean', 'values', 'not');
 
         return $this;
     }
