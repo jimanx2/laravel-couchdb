@@ -40,9 +40,6 @@ And add the service provider in `config/app.php`:
 ```php
 Robsonvn\CouchDB\ServiceProvider::class,
 ```
-### Laravel version Compatibility
-For now, this project only works with Laravel 5.4.x
-
 
 Configuration
 -------------
