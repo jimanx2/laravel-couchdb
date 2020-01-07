@@ -102,6 +102,16 @@ class Book extends Eloquent{
 }
 ```
 
+### Working with multiple databases
+
+Each model can be set to use different 
+databases by setting the `$database` attribute.
+
+```php
+class Book extends Model {
+  protected $database = 'anotherDb';
+}
+```
 
 Query Builder
 -------------
@@ -119,6 +129,7 @@ If you did not change your default database connection, you will need to specify
 ```php
 $user = DB::connection('couchdb')->collection('users')->get();
 ```
+
 
 Read more about the query builder on http://laravel.com/docs/queries
 
@@ -144,7 +155,6 @@ class User extends Authenticatable
 {
 }
 ```
-
 ### Queues
 
 If you want to use CouchDB as your database backend, change the the driver in `config/queue.php`:
