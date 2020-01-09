@@ -536,7 +536,7 @@ class Builder extends BaseBuilder
             }
 
             // We use different methods to compile different wheres.
-            $method = "compileWhere{$where['recordType']}";
+            $method = "compileWhere{$where['type']}";
 
             $result = $this->{$method}($where);
 
