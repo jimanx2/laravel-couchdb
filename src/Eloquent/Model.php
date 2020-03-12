@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model as BaseModel;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\Str;
 use Robsonvn\CouchDB\Query\Builder as QueryBuilder;
+use Doctrine\CouchDB\Attachment;
 
 abstract class Model extends BaseModel
 {
