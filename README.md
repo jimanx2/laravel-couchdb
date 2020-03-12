@@ -659,7 +659,7 @@ CouchDB Limitations
 ------------
 * Currently, there's no way to update and delete using Mango Query. In this case, we have to query the data, bring it to memory, update the fields and bulk an update.
 * CouchDB is really touchy in matter of indexes, even the documentation [recommends](http://docs.couchdb.org/en/2.0.0/api/database/find.html#index-selection) to always explicit the index that your query should use. In this case, **we are automatically creating all necessaries index on the fly**.  
-* CouchDB does not have the concept of collection as MongoDB, so we are using "collections" by adding an attribute (type) in every single document. Please, treat type as a reserved attribute. Use of collections is not optional.
+* CouchDB does not have the concept of collection as MongoDB, so we are using "collections" by adding an attribute (recordType) in every single document. Please, treat recordType as a reserved attribute. Use of collections is not optional.
 
 Limitations
 ------------

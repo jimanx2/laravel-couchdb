@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Cache;
 use Robsonvn\CouchDB\Connection;
 use Doctrine\CouchDB\Mango\MangoQuery;
 use Robsonvn\CouchDB\Exceptions\QueryException;
+use Robsonvn\CouchDB\Compatibility\Util;
 
 class Builder extends BaseBuilder
 {
@@ -78,7 +79,7 @@ class Builder extends BaseBuilder
     '&',
     '|',
     'exists',
-    'type',
+    'recordType',
     'mod',
     'where',
     'size',
@@ -230,7 +231,7 @@ class Builder extends BaseBuilder
         }
 
         //always sort per type first
-        array_unshift($sort, ['type'=>$direction]);
+        array_unshift($sort, ['recordType'=>$direction]);
 
         return $sort;
     }
@@ -278,7 +279,7 @@ class Builder extends BaseBuilder
 
         if (is_null($value) && $operator == '>=') {
             $this->wheres[] = [
-              'type'    => 'Basic',
+              'recordType' => 'Basic',
               'operator'=> '>=',
               'column'  => $column,
               'value'   => null,
@@ -401,7 +402,7 @@ class Builder extends BaseBuilder
                 //Filter columns
                 if (count($columns)) {
                     //mandatory fields
-                    array_push($columns, '_id', '_rev', 'type');
+                    array_push($columns, '_id', '_rev', 'recordType');
                     $doc = array_intersect_key($doc, array_flip($columns));
                 }
                 $docs[] = $doc;
@@ -482,7 +483,7 @@ class Builder extends BaseBuilder
     protected function compileWheres()
     {
         //The wheres to compile.
-        $this->where('type', '=', (string) $this->collection);
+        $this->where('recordType', '=', (string) $this->collection);
         $wheres = is_array($this->wheres) ? $this->wheres : [];
 
         // We will add all compiled wheres to this array.
@@ -536,7 +537,12 @@ class Builder extends BaseBuilder
             }
 
             // We use different methods to compile different wheres.
-            $method = "compileWhere{$where['type']}";
+            try{
+                $where['type'] = array_key_exists('type', $where) ? $where['type'] : $where['recordType'];
+                $method = "compileWhere{$where['type']}";
+            }catch(\Exception $ex) {
+                dd($where, $ex);
+            }
 
             $result = $this->{$method}($where);
 
@@ -573,15 +579,15 @@ class Builder extends BaseBuilder
             $regex = preg_replace('#(^|[^\\\])%#', '$1.*', preg_quote($value));
 
             // Convert like to regular expression.
-            if (!starts_with($value, '%')) {
+            if (!Util::starts_with($value, '%')) {
                 $regex = '^'.$regex;
             }
-            if (!ends_with($value, '%')) {
+            if (!Util::ends_with($value, '%')) {
                 $regex = $regex.'$';
             }
 
             //add case insensitive modifier for ilike operation
-            $value = (ends_with($operator, 'ilike')) ? '(?i)'.$regex : $regex;
+            $value = (Util::ends_with($operator, 'ilike')) ? '(?i)'.$regex : $regex;
 
             $operator = preg_replace('/(i|)(like)/', 'regex', $operator);
         }
@@ -674,7 +680,7 @@ class Builder extends BaseBuilder
     {
         extract($where);
 
-        if (starts_with($operator, '>')) {
+        if ($startsWithFn($operator, '>')) {
             $aux_operator = '$lt';
             $aux_value  = 'a';
         } else {
@@ -713,7 +719,7 @@ class Builder extends BaseBuilder
                   ],
               ],
               $column => [
-                'type'=> $this->getDatabaseEquivalentDataType($values[0]),
+                'recordType'=> $this->getDatabaseEquivalentDataType($values[0]),
               ],
             ];
         } else {
@@ -770,7 +776,7 @@ class Builder extends BaseBuilder
     {
         $type = 'between';
 
-        $this->wheres[] = compact('column', 'type', 'boolean', 'values', 'not');
+        $this->wheres[] = compact('column', 'recordType', 'boolean', 'values', 'not');
 
         return $this;
     }
