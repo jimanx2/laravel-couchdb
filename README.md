@@ -22,6 +22,7 @@ Table of contents
 * [Inserts, updates and deletes](#inserts-updates-and-deletes)
 * [Relations](#relations)
 * [CouchDB specific operators](#couchdb-specific-operators)
+* [Attachments](#attachments)
 * [CouchDB Limitations](#couchdb-limitations)
 * [Limitations](#limitations)
 * [TODO](#todo)
@@ -654,6 +655,10 @@ The internal CouchDBClient can be accessed like this:
 ```php
 $client = DB::getCouchDBClient();
 ```
+
+Attachments
+-----------
+You can have access to attachments by using `addAttachment($filename)`, `getAttachment($filename)`, and `deleteAttachment($filename)`
 
 CouchDB Limitations
 ------------
