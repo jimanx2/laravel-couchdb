@@ -587,4 +587,27 @@ public function attributesToArray()
 
         return parent::__call($method, $parameters);
     }
+    
+    public function addAttachment($filename)
+    {
+        $type = mime_content_type($filename);
+        $attachment = Attachment::createFromBinaryData(file_get_contents($filename), $type);
+
+        $cdbClient = $this->getConnection()->getCouchDBClient();
+        list($id, $status, $rev) = $cdbClient->putAttachment($attachment, $this->id, basename($filename), $this->_rev);
+        return $rev;
+    }
+
+    public function removeAttachment($filename)
+    {
+        $cdbClient = $this->getConnection()->getCouchDBClient();
+        list($id, $rev) = $cdbClient->deleteAttachment($this->id, $filename, $this->_rev);
+        return $rev;
+    }
+
+    public function getAttachment($filename)
+    {
+        $cdbClient = $this->getConnection()->getCouchDBClient();
+        return $cdbClient->getAttachment($this->id, $filename);
+    }
 }
