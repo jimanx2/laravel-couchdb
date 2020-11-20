@@ -13,7 +13,7 @@
     "illuminate/support": "^8.0",
     "illuminate/container": "^8.0",
     "illuminate/events": "^8.0",
-    "jimanx2/couchdb": "dev-experimental/with-attachment",
+    "jimanx2/couchdb": "dev-master",
     "adbario/php-dot-notation": "^1.2"
   },
   "require-dev":{
