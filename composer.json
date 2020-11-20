@@ -9,15 +9,15 @@
   ],
   "license" : "MIT",
   "require": {
-    "illuminate/database": ">=5.5",
-    "illuminate/support": ">=5.5",
-    "illuminate/container": ">=5.5",
-    "illuminate/events": ">=5.5",
+    "illuminate/database": "^8.0",
+    "illuminate/support": "^8.0",
+    "illuminate/container": "^8.0",
+    "illuminate/events": "^8.0",
     "jimanx2/couchdb": "dev-experimental/with-attachment",
     "adbario/php-dot-notation": "^1.2"
   },
   "require-dev":{
-    "laravel/passport": "^3.0.0",
+    "dusterio/lumen-passport": "^0.3.0",
     "phpunit/phpunit": "@stable",
     "orchestra/testbench": "^3.1",
     "mockery/mockery": "^0.9"
