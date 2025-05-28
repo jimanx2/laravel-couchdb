@@ -83,7 +83,7 @@ abstract class Model extends BaseModel
     /**
      * {@inheritdoc}
      */
-    protected function setKeysForSaveQuery(BaseBuilder $query)
+    protected function setKeysForSaveQuery($query)
     {
 
         $query->where($this->getKeyName(), '=', $this->getKeyForSaveQuery());
