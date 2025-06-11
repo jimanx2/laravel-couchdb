@@ -244,7 +244,7 @@ class Builder extends BaseBuilder
         return $this->collection->createMangoIndex($fields, $name) ? $name : false;
     }
 
-    public function useIndex(array $index)
+    public function useIndex($index)
     {
         $this->index = $index;
 
@@ -772,7 +772,7 @@ class Builder extends BaseBuilder
     /**
      * {@inheritdoc}
      */
-    public function whereBetween($column, array $values, $boolean = 'and', $not = false)
+    public function whereBetween($column, iterable $values, $boolean = 'and', $not = false)
     {
         $type = 'between';
 

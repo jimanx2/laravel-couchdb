@@ -67,11 +67,11 @@ trait HybridRelations
     }
 
     // public function morphToMany($related, $name, $table = null, $foreignKey = null, $relatedKey = null, $inverse = false)
-    public function morphToMany($related, $name, $table = NULL, $foreignPivotKey = NULL, $relatedPivotKey = NULL, $parentKey = NULL, $relatedKey = NULL, $inverse = false)
+    public function morphToMany($related, $name, $table = null, $foreignPivotKey = null, $relatedPivotKey = null, $parentKey = null, $relatedKey = null, $relation = null, $inverse = false)
     {
       // Check if it is a relation with an original model.
       if (!is_subclass_of($related, \Robsonvn\CouchDB\Eloquent\Model::class)) {
-          return parent::morphToMany($related, $name, $table, $foreignKey, $relatedKey, $inverse);
+          return parent::morphToMany($related, $name, $table, $foreignPivotKey, $relatedPivotKey, $inverse);
       }
 
       $caller = $this->guessBelongsToManyRelation();
